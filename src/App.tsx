@@ -25,7 +25,8 @@ function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-useEffect(() => {
+export default function App() {
+   useEffect(() => {
   const pingHealth = () => {
     fetch(`${import.meta.env.VITE_API_BASE_URL}/health-check`)
       .catch(() => {});
@@ -35,9 +36,7 @@ useEffect(() => {
 
   const interval = setInterval(pingHealth, 12 * 60 * 1000);
 
-  return () => {
-    clearInterval(interval);
-  };
+  return () => clearInterval(interval);
 }, []);
 
   return (
