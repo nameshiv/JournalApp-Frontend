@@ -24,7 +24,7 @@ export default function Login() {
       await login({ username, password });
       navigate(from, { replace: true });
     } catch (err) {
-      setError(getErrorMessage(err).message);
+      setError(getErrorMessage(err, 'login').message);
     } finally {
       setLoading(false);
     }

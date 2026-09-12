@@ -1,3 +1,4 @@
+import axios from 'axios';
 import client from './client';
 import type { JournalEntry, JournalEntryInput } from '@/types/journal';
 
@@ -10,8 +11,16 @@ function extractArray(data: unknown): JournalEntry[] {
 }
 
 export async function getJournalEntries(): Promise<JournalEntry[]> {
-  const res = await client.get('/journal');
-  return extractArray(res.data);
+  try {
+    const res = await client.get('/journal');
+    return extractArray(res.data);
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
+      return [];
+    }
+
+    throw err;
+  }
 }
 
 export async function getJournalEntry(id: string): Promise<JournalEntry> {

@@ -5,7 +5,7 @@ export interface ApiError {
   status: number;
 }
 
-export function getErrorMessage(error: unknown): ApiError {
+export function getErrorMessage(error: unknown, context?:'login'): ApiError {
   if (error instanceof AxiosError) {
     const status = error.response?.status ?? 0;
 
@@ -13,6 +13,13 @@ export function getErrorMessage(error: unknown): ApiError {
       return {
         message: 'Unable to reach the server. Please check your connection.',
         status: 0,
+      };
+    }
+
+      if (context === 'login' && status === 401) {
+      return {
+        message: 'Incorrect username or password.',
+        status,
       };
     }
 
