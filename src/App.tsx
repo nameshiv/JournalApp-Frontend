@@ -10,6 +10,7 @@ import Journals from '@/pages/Journals';
 import JournalEditor from '@/pages/JournalEditor';
 import Settings from '@/pages/Settings';
 import AdminDashboard from '@/pages/AdminDashboard';
+import { useEffect } from 'react';
 
 function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -25,6 +26,10 @@ function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+    useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/health-check`).catch(() => {});
+  }, []);
+
   return (
     <AuthProvider>
       <BrowserRouter>
