@@ -48,7 +48,7 @@ export default function JournalEditor() {
 
   useEffect(() => {
   const pingHealth = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/health-check`).catch(() => {});
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/health-check`).catch(() => {});
   };
 
   pingHealth();
