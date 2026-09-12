@@ -16,7 +16,7 @@ export function getErrorMessage(error: unknown, context?:'login'): ApiError {
       };
     }
 
-      if (context === 'login' && status === 401) {
+      if (context === 'login' && (status === 400 || status === 401)) {
       return {
         message: 'Incorrect username or password.',
         status,
