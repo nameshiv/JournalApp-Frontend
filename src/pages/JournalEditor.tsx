@@ -46,19 +46,6 @@ export default function JournalEditor() {
 
   const [error, setError] = useState('');
 
-  useEffect(() => {
-  const pingHealth = () => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/health-check`).catch(() => {});
-  };
-
-  pingHealth();
-
-  const interval = setInterval(pingHealth, 12 * 60 * 1000);
-
-  return () => {
-    clearInterval(interval);
-  };
-}, []);
 
   useEffect(() => {
     if (!id) return;

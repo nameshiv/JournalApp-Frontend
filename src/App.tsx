@@ -25,10 +25,20 @@ function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-export default function App() {
-    useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/health-check`).catch(() => {});
-  }, []);
+useEffect(() => {
+  const pingHealth = () => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/health-check`)
+      .catch(() => {});
+  };
+
+  pingHealth();
+
+  const interval = setInterval(pingHealth, 12 * 60 * 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, []);
 
   return (
     <AuthProvider>
