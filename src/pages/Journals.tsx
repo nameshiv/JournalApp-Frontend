@@ -22,7 +22,15 @@ export default function Journals() {
       setLoading(true);
       setError('');
       const data = await getJournalEntries();
-      setEntries(data);
+      
+      const sortedData = [...data].sort(
+      (a, b) =>
+        new Date(b.date ?? '').getTime() -
+        new Date(a.date ?? '').getTime()
+    );
+
+    setEntries(sortedData);
+      
     } catch (err) {
       setError(getErrorMessage(err).message);
     } finally {
