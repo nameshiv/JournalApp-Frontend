@@ -49,8 +49,14 @@ export default function Dashboard() {
       setError('');
 
       const data = await getJournalEntries();
+        const sortedData = [...data].sort(
+      (a, b) =>
+        new Date(b.date ?? '').getTime() -
+        new Date(a.date ?? '').getTime()
+    );
 
-      setEntries(data);
+    setEntries(sortedData);
+
     } catch (err) {
       setError(getErrorMessage(err).message);
     } finally {
