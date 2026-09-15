@@ -132,8 +132,6 @@ const refreshUser = useCallback(async () => {
   try {
     const freshUser = await getCurrentUser();
 
-    console.log("FRESH USER FROM BACKEND:", freshUser);
-
     setUser(freshUser);
     setStoredUser(JSON.stringify(freshUser));
   } catch (error) {
